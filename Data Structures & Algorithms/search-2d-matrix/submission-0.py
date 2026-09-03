@@ -1,27 +1,21 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
 class Solution:
-    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        ROWS, COLS = len(matrix), len(matrix[0])
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        if list1 is None:
+            return list2
+        if list2 is None:
+            return list1
+        if list1.val <= list2.val:
+            list1.next = self.mergeTwoLists(list1.next,list2)
+            return list1
+        else:
+            list2.next = self.mergeTwoLists(list1,list2.next)
+            return list2
+    
 
-        top, bot = 0, ROWS - 1
-        while top <= bot:
-            row = (top + bot) // 2
-            if target > matrix[row][-1]:
-                top = row + 1
-            elif target < matrix[row][0]:
-                bot = row - 1
-            else:
-                break
-
-        if not (top <= bot):
-            return False
-        row = (top + bot) // 2
-        l, r = 0, COLS - 1
-        while l <= r:
-            m = (l + r) // 2
-            if target > matrix[row][m]:
-                l = m + 1
-            elif target < matrix[row][m]:
-                r = m - 1
-            else:
-                return True
-        return False
+        
